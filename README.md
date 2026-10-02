@@ -29,8 +29,8 @@ docker compose up --build
 ## Endpoints
 
 - `POST /predict` — body: 30 named float features (see `app.schemas.prediction.FEATURE_NAMES`). Returns `{"prediction": 0|1, "probability": [p0, p1]}`.
-- `GET /observability/metrics` — latest PSI/KS drift report over the last `WINDOW_SIZE` requests (default 100), or `{"status": "insufficient_data"}` until `MIN_SAMPLES_FOR_DRIFT` (default 30) requests have arrived.
-- `GET /health` — liveness + model-loaded check.
+- `GET /observability/metrics` — latest PSI/KS drift report over the last `WINDOW_SIZE` requests (default 100). Insufficient data: `{"status": "insufficient_data", "samples_in_window": <int>, "min_required": <int>}`. OK: `{"status": "ok", "window_size": <int>, "samples_in_window": <int>, "last_updated": "<ISO 8601>", "overall_drift_detected": <bool>, "features": {"<feature_name>": {"psi": <float>, "ks_statistic": <float>, "ks_pvalue": <float>, "drift": <bool>}, ...}}`.
+- `GET /health` — liveness + model-loaded check. Returns `{"status": "ok", "model_loaded": true|false}`.
 
 ## Configuration
 
