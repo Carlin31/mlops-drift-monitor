@@ -3,6 +3,8 @@ from typing import Optional
 
 
 class MetricsStore:
+    """Single-writer in-memory store: only the predict endpoint's background task calls set()."""
+
     def __init__(self) -> None:
         self._report: Optional[dict] = None
         self._last_updated: Optional[datetime] = None
