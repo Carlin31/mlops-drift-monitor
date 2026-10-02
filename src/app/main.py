@@ -4,7 +4,7 @@ from pathlib import Path
 import pandas as pd
 from fastapi import FastAPI
 
-from app.api import observability
+from app.api import observability, predict
 from app.core.config import settings
 from app.core.model import ensure_artifacts_exist, load_model
 from app.observability.buffer import DriftBuffer
@@ -26,3 +26,4 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="MLOps Drift Monitor", lifespan=lifespan)
 app.include_router(observability.router)
+app.include_router(predict.router)
